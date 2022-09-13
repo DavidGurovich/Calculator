@@ -6,7 +6,7 @@ const currentState = document.querySelector('.secondDisplay');
 const tempState = document.querySelector('.temporaryDisplay');
 const equals = document.getElementById('equals');
 const clear = document.getElementById('clear');
-// const dot = document.getElementById('dot');
+
 
 let valOne = "";
 let valTwo = "";
@@ -16,13 +16,28 @@ let lastOperation = "";
 
 
 // event listeners
-equals.addEventListener('click', solveFunction)
-// dot.addEventListener('click', dotFunction)
+// equals.addEventListener('click', )
 deleteButton.addEventListener('click', deleteFunction)
 clear.addEventListener('click', clearFunction)
 
 operators.forEach((button) =>
-    button.addEventListener('click', () => checkSign(button.textContent)))
+    button.addEventListener('click', (e) => {
+        if (valTwo === "") return;
+        isdotPresent = false;
+        const currentSign = e.target.innerText
+        if (valOne && valTwo && lastOperation) {
+            operate();
+        }
+        else {
+            result = parseFloat(valTwo);
+        }
+        valOne += valTwo + " " + currentSign + " ";
+        previousState.innerText = valOne;
+        currentState.innerText = "";
+        valTwo = "";
+        tempState.innerText = result;
+        lastOperation = currentSign;
+    }))
 
 enterNumbers.forEach((button) => 
     button.addEventListener('click', (e) => {
@@ -37,55 +52,33 @@ enterNumbers.forEach((button) =>
     }),  
     )
 
-function dotFunction(){
 
-}
-
+equals.addEventListener('click', () => {
+    if (!valOne || ! valTwo) return;
+    isdotPresent = false;
+    operate();
+    currentState.innerText = result;
+    tempState.innerText = "";
+    valTwo = result;
+    valOne = ""
+})
  
-
-
-
-
-
-function checkSign(sign){
-    if (currentSign !== null) solveFunction()
-    firstValue = currentState.textContent
-    currentSign = sign
-    currentState.textContent = `${firstValue}${currentSign}`
-    shouldResetScreen = true
-   
     
-}
-
-function solveFunction() {
+const operate = () => {
     
-    if (currentSign === null || shouldResetScreen) return 
-    secondValue = currentState.textContent
-    currentState.textContent = operate(currentSign, firstValue, secondValue)
-    // console.log(operate(currentSign, firstValue, secondValue))
-    currentState.textContent = `${firstValue}${currentSign}${secondValue} =`
-    // console.log(currentSign, firstValue, secondValue)
-    currentSign = null
-}
-
-const operate = (method, a , b) => {
-    a = Number(a);
-    b = Number(b);
-    switch(method){
+    switch(lastOperation){
         case '+':
-            return a + b;
+            result = parseFloat(result) + parseFloat(valTwo);
         case '-':
-            return a - b;
-        case 'X':
-            return a * b;
+            result = parseFloat(result) - parseFloat(valTwo);
+        case 'x':
+            result = parseFloat(result) * parseFloat(valTwo);
         case '÷':
-            if (b === 0) return null 
-            else {
-                return a / b;
-            }
+            result = parseFloat(result) / parseFloat(valTwo);
         case '^':
-            return a ** b;
-
+            result = parseFloat(result) ** parseFloat(valTwo);
+        case '%':
+            result = parseFloat(result) % parseFloat(valTwo);
     }
 }
 

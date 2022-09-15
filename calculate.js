@@ -17,34 +17,17 @@ let lastOperation = "";
 
 // event listeners
 // equals.addEventListener('click', )
-deleteButton.addEventListener('click', deleteFunction)
-clear.addEventListener('click', clearFunction)
+deleteButton.addEventListener('click', deleteFunction);
+clear.addEventListener('click', clearFunction);
 
-operators.forEach((button) =>
-    button.addEventListener('click', (e) => {
-        if (valTwo === "") return;
-        isdotPresent = false;
-        const currentSign = e.target.innerText
-        if (valOne && valTwo && lastOperation) {
-            operate();
-        }
-        else {
-            result = parseFloat(valTwo);
-        }
-        valOne += valTwo + " " + currentSign + " ";
-        previousState.innerText = valOne;
-        currentState.innerText = "";
-        valTwo = "";
-        tempState.innerText = result;
-        lastOperation = currentSign;
-    }))
+
 
 enterNumbers.forEach((button) => 
     button.addEventListener('click', (e) => {
-        if (isdotPresent === false && e.target.innerText === "."){
+        if (!isdotPresent && e.target.innerText === "."){
             isdotPresent = true;
         }
-        else if (e.target.innerText === "." && isdotPresent === true){
+        else if (e.target.innerText === "." && isdotPresent){
             return; 
         }
         valTwo += e.target.innerText
@@ -52,33 +35,66 @@ enterNumbers.forEach((button) =>
     }),  
     )
 
+operators.forEach((button) =>
+    button.addEventListener('click', (e) => {
+        if (!valTwo) return;
+        isdotPresent = false;
+        const currentSign = e.target.innerText;
+        if (valOne && valTwo && lastOperation) {
+            operate();
+        }
+        else {
+            result = parseFloat(valTwo);
+        }
+        clearVar(currentSign);
+        lastOperation = currentSign;
+        
+    }))
+
+function clearVar(name = ""){
+    valOne += valTwo + " " + name + " ";
+    previousState.innerText = valOne;
+    currentState.innerText = "";
+    valTwo = "";
+    tempState.innerText = result;
+}
 
 equals.addEventListener('click', () => {
-    if (!valOne || ! valTwo) return;
+    if (!valOne || !valTwo) return;
     isdotPresent = false;
     operate();
+    console.log(result)
+    clearVar();
+    console.log(result)
     currentState.innerText = result;
     tempState.innerText = "";
     valTwo = result;
     valOne = ""
+    
 })
  
     
-const operate = () => {
+function operate() {
     
     switch(lastOperation){
         case '+':
             result = parseFloat(result) + parseFloat(valTwo);
+            break
         case '-':
             result = parseFloat(result) - parseFloat(valTwo);
+            break
         case 'x':
             result = parseFloat(result) * parseFloat(valTwo);
+            break
         case '÷':
             result = parseFloat(result) / parseFloat(valTwo);
+            break
         case '^':
             result = parseFloat(result) ** parseFloat(valTwo);
+            break
         case '%':
             result = parseFloat(result) % parseFloat(valTwo);
+            break
     }
 }
 

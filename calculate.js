@@ -15,8 +15,7 @@ let isdotPresent = false;
 let lastOperation = "";
 
 
-// event listeners
-// equals.addEventListener('click', )
+
 deleteButton.addEventListener('click', deleteFunction);
 clear.addEventListener('click', clearFunction);
 
@@ -63,13 +62,11 @@ equals.addEventListener('click', () => {
     if (!valOne || !valTwo) return;
     isdotPresent = false;
     operate();
-    console.log(result)
     clearVar();
-    console.log(result)
     currentState.innerText = result;
     tempState.innerText = "";
     valTwo = result;
-    valOne = ""
+    valOne = "";
     
 })
  
@@ -99,10 +96,16 @@ function operate() {
 }
 
 function deleteFunction(){
-    currentState.textContent = currentState.textContent.toString().slice(0, -1) 
+    valTwo = "";
+    currentState.textContent = ''; 
 } 
 
 
 function clearFunction(){
-    currentState.textContent = '0'
+    currentState.textContent = '';
+    previousState.textContent = '';
+    tempState.textContent = '';
+    result = '';
+    valOne = '';
+    valTwo = '';    
 }   

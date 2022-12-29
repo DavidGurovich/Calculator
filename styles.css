@@ -3,6 +3,7 @@ body {
     margin: 0;  
     background: linear-gradient(to right, #ecb5b5, #ed4141);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    min-height: 100%
 }
 .container {
     display: flex;

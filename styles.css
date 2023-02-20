@@ -96,7 +96,7 @@ button:hover {
     background: hsl(357, 100%, 72%);
 }
 
-footer {
+.footer {
     margin-top: 60px;
     display: flex;
     align-items: center;

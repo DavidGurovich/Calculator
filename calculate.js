@@ -98,7 +98,7 @@ function operate() {
 function deleteFunction(){
     valTwo = "";
     currentState.textContent = ''; 
-} 
+}; 
 
 
 function clearFunction(){
@@ -108,4 +108,49 @@ function clearFunction(){
     result = '';
     valOne = '';
     valTwo = '';    
-}   
+}; 
+
+
+
+
+window.addEventListener("keydown", (e) => {
+    if (
+      e.key === "0" ||
+      e.key === "1" ||
+      e.key === "2" ||
+      e.key === "3" ||
+      e.key === "4" ||
+      e.key === "5" ||
+      e.key === "6" ||
+      e.key === "7" ||
+      e.key === "8" ||
+      e.key === "9" ||
+      e.key === "."
+    ) {
+    
+    enterNumbers.forEach((button) => {
+        if (button.innerText === e.key) {
+          button.click();
+        }
+      });
+     
+    } else if (e.key === "-" || e.key === "+" ||e.key === "/" ||  e.key === "%") {
+    
+    operators.forEach((operation) => {
+        if (operation.innerText === e.key) {
+          operation.click();
+        }
+      });
+    
+    } else if (e.key === "*") {
+        operators.forEach((operation) => {
+            if (operation.innerText === "x") {
+              operation.click();
+            }
+          });
+    
+    } else if (e.key === "="||e.key == "Enter"  ) {
+      equals.click()
+    }
+  
+  });
